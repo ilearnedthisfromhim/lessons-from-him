@@ -360,7 +360,10 @@
   z-index: 4;
 }
 
-/* ── PHOTO ZONE — full-bleed, top ~62% of the card ── */
+/* ── PHOTO ZONE — full-bleed, top ~60% of the card ──
+   Fixed box from first paint. The <img> is absolutely
+   positioned inside it so the photo's own natural size
+   never influences layout — no pop/resize on load. */
 .dcPhotoZone {
   position: relative;
   width: 100%;
@@ -369,6 +372,8 @@
   background: #0a2747;
 }
 .dcPhoto {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;

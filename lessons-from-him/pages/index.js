@@ -217,7 +217,14 @@ export default function Home() {
                   {/* photo zone — full-bleed, never shrinks to a small circle */}
                   <div className={styles.dcPhotoZone}>
                     {photo && (
-                      <img src={photo} alt="Father" className={styles.dcPhoto} />
+                      <img
+                        src={photo}
+                        alt="Father"
+                        className={styles.dcPhoto}
+                        width="1080"
+                        height="1152"
+                        decoding="sync"
+                      />
                     )}
                     <div className={styles.dcLightLeak} />
                     <div className={styles.dcGrain} />

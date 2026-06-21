@@ -47,7 +47,7 @@ export default function Home() {
       const html2canvas = (await import('html2canvas')).default
       const node = cardRef.current
       const renderedWidth = node.offsetWidth
-      // 9:16 Story/Reel export target (1080x1920), regardless of on-screen size
+      // 1:1 square export target (1080x1080), regardless of on-screen size
       const EXPORT_WIDTH = 1080
       const scale = EXPORT_WIDTH / renderedWidth
 

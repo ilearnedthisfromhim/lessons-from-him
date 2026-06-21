@@ -102,8 +102,6 @@
 
 /* ══════════════════════════════════════════
    HERO BLOCK — Step 1 title
-   Mixed-weight treatment: light italic word,
-   then a big bold display word in navy/yellow.
 ══════════════════════════════════════════ */
 .heroBlock { text-align: center; }
 
@@ -226,7 +224,7 @@
 }
 
 /* ══════════════════════════════════════════
-   CTA BUTTON — matches site-wide btn-join
+   CTA BUTTON
 ══════════════════════════════════════════ */
 .cta {
   width: 100%;
@@ -313,10 +311,16 @@
 
 /* ══════════════════════════════════════════
    STEP 3 — DIGITAL CARD
-   Poster style: the photo IS the background,
-   full bleed, edge to edge, square (1:1). The
-   headline sits directly on top of it — no
-   card-on-card, no white panel, no framing.
+   FIX: the box is no longer forced into a 1:1
+   square. Its aspect-ratio is set inline (in
+   index.js) from the uploaded photo's own
+   natural width/height, so the card box always
+   matches the photo's real shape exactly —
+   portrait stays portrait, landscape stays
+   landscape, square stays square. We only
+   constrain the box to never exceed the
+   available width; height follows from the
+   aspect-ratio, never the reverse.
 ══════════════════════════════════════════ */
 .cardPreviewWrap {
   border-radius: 20px;
@@ -324,13 +328,9 @@
   box-shadow: 0 16px 40px rgba(10,39,71,0.22);
   position: relative;
   width: 100%;
-  /* Bulletproof 1:1 box via padding-percentage, independent of the
-     aspect-ratio CSS property. height:0 + padding-top forces the box
-     open to an exact square no matter what the parent flex/scroll
-     chain does — this is what actually prevents the photo and text
-     from ever stretching or collapsing. */
-  height: 0;
-  padding-top: 100%; /* 1:1 */
+  /* aspect-ratio is set per-image via inline style; this is just a
+     sane fallback before photoDims is known (e.g. first paint). */
+  aspect-ratio: 1 / 1;
 }
 
 .digitalCard {
@@ -342,19 +342,24 @@
   overflow: hidden;
 }
 
+/* FIX: object-fit changed from "cover" to "contain". Because the
+   container's aspect-ratio now exactly matches the photo's native
+   aspect ratio, "contain" renders the photo at its full, undistorted
+   shape with zero cropping and zero stretching — it simply fills the
+   box edge-to-edge since the box was sized to fit it in the first
+   place. This removes the source of the stretching/upscaling bug. */
 .dcPhoto {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 28%;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
 /* Scrim behind the headline — guarantees the white/yellow text
-   stays readable no matter how light the photo is at that spot.
-   Subtle, not a heavy filter over the whole photo. */
+   stays readable no matter how light the photo is at that spot. */
 .dcTopScrim {
   position: absolute;
   top: 0; left: 0; right: 0;

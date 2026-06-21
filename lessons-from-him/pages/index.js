@@ -217,11 +217,12 @@ export default function Home() {
                       src={photo}
                       alt="Father"
                       className={styles.dcPhoto}
-                      width="1080"
-                      height="1920"
                       decoding="sync"
                     />
                   )}
+
+                  <div className={styles.dcTopScrim} />
+                  <div className={styles.dcBottomScrim} />
 
                   <div className={styles.dcHeadline}>
                     <p className={styles.dcHeadlineLine}>He taught me</p>

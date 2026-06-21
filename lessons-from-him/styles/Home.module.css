@@ -56,18 +56,19 @@
    HEADER
 ══════════════════════════════════════════ */
 .header {
-  background: #0a2747;
+  background: #ffffff;
   padding: 16px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
+  border-bottom: 1px solid #eef2f6;
 }
 
 .brandName {
   font-size: 12.5px;
   font-weight: 800;
-  color: #fcef10;
+  color: #0a2747;
   letter-spacing: 0.6px;
   text-transform: uppercase;
 }
@@ -77,11 +78,11 @@
 .dot {
   width: 7px; height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.22);
+  background: #e4eaf0;
   transition: all 0.3s;
 }
 .dotActive {
-  background: #fcef10;
+  background: #0a2747;
   width: 22px;
   border-radius: 4px;
 }
@@ -312,179 +313,181 @@
 
 /* ══════════════════════════════════════════
    STEP 3 — DIGITAL CARD
-   This is the shareable artifact. Same brand
-   system, kept clean — no decorative clutter.
+   White card, 9:16 (Story/Reel format), with
+   a full-bleed photo so the image never gets
+   shrunk down to a tiny circle.
 ══════════════════════════════════════════ */
 .cardPreviewWrap {
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(10,39,71,0.28);
+  box-shadow: 0 16px 40px rgba(10,39,71,0.22);
 }
 
 .digitalCard {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background:
-    radial-gradient(circle at 18% 15%, rgba(255,255,255,0.10), transparent 38%),
-    linear-gradient(165deg, #0a2747 0%, #163b6b 55%, #0a2747 100%);
+  aspect-ratio: 9 / 16;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 22px;
-  gap: 16px;
 }
 
-/* fine grain texture — keeps the navy from looking flat/digital */
+/* fine grain texture — subtle, sits over the photo only */
 .dcGrain {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.4;
   mix-blend-mode: overlay;
   pointer-events: none;
+  z-index: 3;
 }
 
-/* delicate diagonal light leak, sits above grain, below content */
-.dcLightLeak {
-  position: absolute;
-  top: -20%;
-  right: -25%;
-  width: 75%;
-  height: 75%;
-  background: radial-gradient(ellipse at center, rgba(252,239,16,0.20), rgba(252,239,16,0.05) 45%, transparent 72%);
-  filter: blur(2px);
-  pointer-events: none;
-}
-
-/* slim accent rules instead of border clutter */
+/* slim accent rules, top and bottom of the whole card */
 .dcBorderTop {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 5px;
+  height: 6px;
   background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
+  z-index: 4;
 }
 .dcBorderBottom {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 5px;
+  height: 6px;
   background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
+  z-index: 4;
 }
 
-/* soft corner glow accents */
-.dcCornerTL {
-  position: absolute; top: 0; right: 0;
-  width: 55%; height: 55%;
-  background: radial-gradient(circle at top right, rgba(252,239,16,0.16), transparent 70%);
-  pointer-events: none;
+/* ── PHOTO ZONE — full-bleed, top ~62% of the card ── */
+.dcPhotoZone {
+  position: relative;
+  width: 100%;
+  flex: 0 0 60%;
+  overflow: hidden;
+  background: #0a2747;
 }
-.dcCornerBR {
-  position: absolute; bottom: 0; left: 0;
-  width: 48%; height: 48%;
-  background: radial-gradient(circle at bottom left, rgba(252,239,16,0.10), transparent 70%);
-  pointer-events: none;
+.dcPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
 
-/* soft inner vignette to ground the edges */
-.dcVignette {
+/* gradient fade where photo meets the white text panel, so the
+   transition reads as designed, not just "cropped" */
+.dcPhotoFade {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(5,12,25,0.35) 100%);
+  left: 0; right: 0; bottom: 0;
+  height: 38%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.55) 65%, #ffffff 100%);
   pointer-events: none;
+  z-index: 2;
+}
+
+/* delicate light leak across the photo's top corner — realistic, not literal */
+.dcLightLeak {
+  position: absolute;
+  top: -15%;
+  right: -20%;
+  width: 65%;
+  height: 55%;
+  background: radial-gradient(ellipse at center, rgba(252,239,16,0.22), rgba(252,239,16,0.05) 45%, transparent 72%);
+  filter: blur(3px);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .dcBrand {
   position: absolute;
-  top: 18px; left: 0; right: 0;
+  top: 22px; left: 0; right: 0;
   text-align: center;
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(252,239,16,0.65);
-  z-index: 2;
+  color: rgba(255,255,255,0.85);
+  z-index: 3;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 
-.dcPhotoRing {
-  width: 116px;
-  height: 116px;
-  border-radius: 50%;
-  border: 3px solid #fcef10;
-  box-shadow: 0 0 0 6px rgba(252,239,16,0.16), 0 10px 28px rgba(0,0,0,0.4);
-  overflow: hidden;
-  flex-shrink: 0;
-  margin-top: 4px;
+/* ── TEXT PANEL — white, bottom ~40% of the card ── */
+.dcTextPanel {
   position: relative;
-  z-index: 2;
-}
-.dcPhoto {
-  width: 100%; height: 100%;
-  object-fit: cover;
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px 26px 26px;
+  text-align: center;
 }
 
-.dcTitleWrap { text-align: center; position: relative; z-index: 2; }
+.dcTitleWrap { text-align: center; }
 .dcTitleSmall {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: rgba(255,255,255,0.45);
+  color: #aab4c4;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
 }
 .dcTitleBig {
   font-family: 'Inter', sans-serif;
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 800;
-  color: #ffffff;
-  line-height: 1.2;
-  letter-spacing: -0.3px;
+  color: #0a2747;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
 }
 
 .dcDivider {
-  width: 70%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(252,239,16,0.5), transparent);
-  position: relative;
-  z-index: 2;
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: #fcef10;
 }
 
 .dcHeTaught {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.45);
+  color: #aab4c4;
   font-weight: 600;
-  position: relative;
-  z-index: 2;
 }
 .dcLesson {
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
-  font-weight: 600;
-  color: #fcef10;
-  line-height: 1.45;
+  font-weight: 700;
+  color: #0a2747;
+  line-height: 1.4;
   text-align: center;
-  padding: 0 14px;
-  position: relative;
-  z-index: 2;
+  padding: 0 6px;
+}
+.dcLesson::before,
+.dcLesson::after {
+  content: '"';
+  color: #fcef10;
+  font-style: normal;
+  font-weight: 800;
 }
 
 .dcFooter {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: rgba(255,255,255,0.35);
+  color: #aab4c4;
   font-weight: 600;
-  position: relative;
-  z-index: 2;
 }
-.dcDot { color: #fcef10; opacity: 0.6; }
+.dcDot { color: #fcef10; }
 
 /* ══════════════════════════════════════════
    CONSENT + MISC

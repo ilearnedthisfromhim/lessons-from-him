@@ -1,35 +1,36 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 const LESSONS = [
-  { id: 1, text: 'that everyone deserves kindness' },
-  { id: 2, text: 'to work hard without complaining' },
-  { id: 3, text: 'to stay calm when life gets hard' },
-  { id: 4, text: 'that listening matters more than speaking' },
-  { id: 5, text: 'to never give up, no matter what' },
-  { id: 6, text: 'how to fix things with my own hands' },
-  { id: 7, text: 'that family must always come first' },
-  { id: 8, text: 'to take care of this body I\'ve been given' },
-  { id: 9, text: 'that rest is not weakness' },
+  { id: 1,  text: 'that everyone deserves kindness' },
+  { id: 2,  text: 'to work hard without complaining' },
+  { id: 3,  text: 'to stay calm when life gets hard' },
+  { id: 4,  text: 'that listening matters more than speaking' },
+  { id: 5,  text: 'to never give up, no matter what' },
+  { id: 6,  text: 'how to fix things with my own hands' },
+  { id: 7,  text: 'that family must always come first' },
+  { id: 8,  text: 'to take care of this body I\'ve been given' },
+  { id: 9,  text: 'that rest is not weakness' },
   { id: 10, text: 'that small daily habits shape a life' },
   { id: 'custom', text: 'custom' },
 ]
 
-export default function Home() {
-  const [step, setStep] = useState(1)
-  const [selectedLesson, setSelectedLesson] = useState(null)
-  const [customLesson, setCustomLesson] = useState('')
-  const [photo, setPhoto] = useState(null)
-  const [photoFile, setPhotoFile] = useState(null)
-  const [consent, setConsent] = useState(false)
-  const [cardUrl, setCardUrl] = useState(null)
-  const [submitting, setSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+// Father silhouette border SVG pattern as a data URI
+const SILHOUETTE_BORDER = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='8' r='4' fill='%231B2F6B' opacity='0.18'/%3E%3Cpath d='M12 28 Q20 14 28 28' fill='%231B2F6B' opacity='0.18'/%3E%3Cpath d='M14 28 L12 38 M26 28 L28 38 M20 28 L20 38' stroke='%231B2F6B' stroke-width='2.5' opacity='0.18' stroke-linecap='round'/%3E%3C/svg%3E")`
 
-  const fileInputRef = useRef(null)
+export default function Home() {
+  const [step, setStep]                     = useState(1)
+  const [selectedLesson, setSelectedLesson] = useState(null)
+  const [customLesson, setCustomLesson]     = useState('')
+  const [photo, setPhoto]                   = useState(null)
+  const [consent, setConsent]               = useState(false)
+  const [submitting, setSubmitting]         = useState(false)
+  const [submitted, setSubmitted]           = useState(false)
+
+  const fileInputRef   = useRef(null)
   const cameraInputRef = useRef(null)
-  const cardRef = useRef(null)
+  const cardRef        = useRef(null)
 
   const lessonText = selectedLesson === 'custom'
     ? customLesson
@@ -38,11 +39,9 @@ export default function Home() {
   const handlePhotoSelect = (e) => {
     const file = e.target.files[0]
     if (!file) return
-    setPhotoFile(file)
     const reader = new FileReader()
-    reader.onload = (ev) => setPhoto(ev.target.result)
+    reader.onload = (ev) => { setPhoto(ev.target.result); setStep(3) }
     reader.readAsDataURL(file)
-    setStep(3)
   }
 
   const handleDownload = async () => {
@@ -50,19 +49,17 @@ export default function Home() {
     try {
       const html2canvas = (await import('html2canvas')).default
       const canvas = await html2canvas(cardRef.current, {
-        scale: 2,
+        scale: 3,
         useCORS: true,
-        backgroundColor: null,
+        backgroundColor: '#1B2F6B',
+        logging: false,
       })
       const dataUrl = canvas.toDataURL('image/png')
-
-      // Download locally
       const link = document.createElement('a')
       link.download = 'lessons-from-him-card.png'
       link.href = dataUrl
       link.click()
 
-      // If consented, submit to Google Sheets
       if (consent && !submitted) {
         await fetch('/api/submit', {
           method: 'POST',
@@ -83,84 +80,77 @@ export default function Home() {
     }
   }
 
-  const canContinueStep1 = selectedLesson !== null &&
+  const canContinue = selectedLesson !== null &&
     (selectedLesson !== 'custom' || customLesson.trim().length > 3)
+
+  const resetAll = () => {
+    setStep(1); setSelectedLesson(null); setCustomLesson('')
+    setPhoto(null); setConsent(false); setSubmitted(false)
+  }
 
   return (
     <>
       <Head>
-        <title>Lessons I Learned From Him — The Yellow Clinic</title>
-        <meta name="description" content="Celebrate Father's Day by sharing the lesson your father figure taught you." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Lessons I Learned From Him — The Yellow Brand</title>
+        <meta name="description" content="Share the lesson your father figure taught you." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="theme-color" content="#1B2F6B" />
       </Head>
 
       <div className={styles.page}>
-        {/* Background decoration */}
-        <div className={styles.bgDecor1} />
-        <div className={styles.bgDecor2} />
+        <div className={styles.card}>
 
-        <div className={styles.phoneFrame}>
-          {/* Header */}
-          <header className={styles.header}>
-            <div className={styles.logoArea}>
-              <div className={styles.logoIcon}>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="14" cy="14" r="13" stroke="#F5C518" strokeWidth="2"/>
-                  <path d="M14 7v14M7 14h14" stroke="#F5C518" strokeWidth="2.5" strokeLinecap="round"/>
-                  <path d="M8 14 Q14 8 20 14" stroke="#F5C518" strokeWidth="1.5" fill="none"/>
-                </svg>
-              </div>
-              <div>
-                <span className={styles.logoName}>The Yellow Clinic</span>
-                <span className={styles.logoTagline}>Excellent Medical &amp; Healthcare Services</span>
-              </div>
-            </div>
+          {/* ══ TOP BORDER STRIP with silhouettes ══ */}
+          <div className={styles.borderTop}>
+            <SilhouetteStrip />
+          </div>
+
+          {/* ══ HEADER ══ */}
+          <div className={styles.header}>
+            <div className={styles.brandName}>The Yellow Brand</div>
             <div className={styles.stepDots}>
-              {[1, 2, 3].map(s => (
+              {[1,2,3].map(s => (
                 <span key={s} className={`${styles.dot} ${step >= s ? styles.dotActive : ''}`} />
               ))}
             </div>
-          </header>
+          </div>
 
-          {/* ── STEP 1: Choose Lesson ── */}
+          {/* ══ STEP 1 ══ */}
           {step === 1 && (
-            <div className={styles.stepContent}>
-              <div className={styles.stepLabel}>Step 1 of 3</div>
-              <h1 className={styles.title}>
-                <span className={styles.titleSmall}>Lessons I</span>
-                <span className={styles.titleLarge}>Learned</span>
-                <span className={styles.titleAccent}>From Him</span>
-              </h1>
-              <p className={styles.subtitle}>Choose the important lesson you took from your father figure</p>
+            <div className={styles.body}>
+              <div className={styles.heroBlock}>
+                <p className={styles.heroEyebrow}>My</p>
+                <h1 className={styles.heroTitle}>
+                  <span className={styles.heroTitleYellow}>LESSON</span>
+                  <span className={styles.heroTitleIs}> is...</span>
+                </h1>
+                <p className={styles.heroSub}>Choose the important lesson you took from your father or father figure</p>
+              </div>
 
-              <div className={styles.lessonsGrid}>
-                {LESSONS.slice(0, 10).map(lesson => (
+              <div className={styles.grid}>
+                {LESSONS.slice(0,10).map(l => (
                   <button
-                    key={lesson.id}
-                    className={`${styles.lessonBtn} ${selectedLesson === lesson.id ? styles.lessonBtnActive : ''}`}
-                    onClick={() => setSelectedLesson(lesson.id)}
+                    key={l.id}
+                    className={`${styles.pill} ${selectedLesson === l.id ? styles.pillActive : ''}`}
+                    onClick={() => setSelectedLesson(l.id)}
                   >
-                    <span className={styles.lessonQuote}>"</span>
-                    {lesson.text}
+                    {l.text}
                   </button>
                 ))}
-
                 <button
-                  className={`${styles.lessonBtn} ${styles.lessonBtnCustom} ${selectedLesson === 'custom' ? styles.lessonBtnActive : ''}`}
+                  className={`${styles.pill} ${styles.pillCustom} ${selectedLesson === 'custom' ? styles.pillActive : ''}`}
                   onClick={() => setSelectedLesson('custom')}
                 >
-                  <span className={styles.lessonQuote}>"</span>
                   or tell us your own lesson...
                 </button>
               </div>
 
               {selectedLesson === 'custom' && (
-                <div className={styles.customInputWrap}>
+                <div className={styles.customWrap}>
                   <input
-                    type="text"
                     className={styles.customInput}
-                    placeholder='e.g. "that honesty is always the best path"'
+                    type="text"
+                    placeholder="e.g. that honesty is always the best path"
                     value={customLesson}
                     onChange={e => setCustomLesson(e.target.value)}
                     maxLength={80}
@@ -171,190 +161,187 @@ export default function Home() {
               )}
 
               <button
-                className={`${styles.ctaBtn} ${!canContinueStep1 ? styles.ctaBtnDisabled : ''}`}
-                onClick={() => canContinueStep1 && setStep(2)}
-                disabled={!canContinueStep1}
+                className={`${styles.cta} ${!canContinue ? styles.ctaDisabled : ''}`}
+                onClick={() => canContinue && setStep(2)}
+                disabled={!canContinue}
               >
                 Continue
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{marginLeft: 6}}>
-                  <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
               </button>
             </div>
           )}
 
-          {/* ── STEP 2: Upload Photo ── */}
+          {/* ══ STEP 2 ══ */}
           {step === 2 && (
-            <div className={styles.stepContent}>
-              <div className={styles.stepLabel}>Step 2 of 3</div>
-              <div className={styles.selectedLessonPreview}>
-                <span className={styles.previewQuote}>"</span>
-                <span>He taught me {lessonText}</span>
-                <span className={styles.previewQuote}>"</span>
+            <div className={styles.body}>
+              <div className={styles.lessonPill}>
+                He taught me <strong>{lessonText}</strong>
               </div>
 
-              <h2 className={styles.stepTitle}>Add a photo of your hero</h2>
-              <p className={styles.stepDesc}>Upload a photo of your father or father figure to create your personalised card</p>
+              <div className={styles.heroBlock}>
+                <h2 className={styles.stepHeading}>Take Your Photo</h2>
+                <p className={styles.heroSub}>Add a photo of your father or father figure to create your personalised card</p>
+              </div>
 
-              <div className={styles.photoOptions}>
-                <input
-                  ref={cameraInputRef}
-                  type="file"
-                  accept="image/*"
-                  capture="environment"
-                  style={{ display: 'none' }}
-                  onChange={handlePhotoSelect}
-                />
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  onChange={handlePhotoSelect}
-                />
+              <div className={styles.photoBtns}>
+                <input ref={cameraInputRef} type="file" accept="image/*" capture="environment"
+                  style={{display:'none'}} onChange={handlePhotoSelect} />
+                <input ref={fileInputRef} type="file" accept="image/*"
+                  style={{display:'none'}} onChange={handlePhotoSelect} />
 
-                <button
-                  className={styles.photoBtn}
-                  onClick={() => cameraInputRef.current?.click()}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="13" r="4"/>
-                  </svg>
-                  Open Camera
+                <button className={styles.photoBtn} onClick={() => cameraInputRef.current?.click()}>
+                  <CameraIcon /> Open Camera
                 </button>
-
-                <button
-                  className={styles.photoBtn}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <polyline points="21 15 16 10 5 21"/>
-                  </svg>
-                  Choose From Gallery
+                <button className={styles.photoBtn} onClick={() => fileInputRef.current?.click()}>
+                  <GalleryIcon /> Choose From Gallery
                 </button>
               </div>
 
-              <button className={styles.backBtn} onClick={() => setStep(1)}>
-                ← Back
-              </button>
+              <button className={styles.backBtn} onClick={() => setStep(1)}>Back</button>
             </div>
           )}
 
-          {/* ── STEP 3: Card Preview & Download ── */}
+          {/* ══ STEP 3 ══ */}
           {step === 3 && (
-            <div className={styles.stepContent}>
-              <div className={styles.stepLabel}>Step 3 of 3</div>
-              <h2 className={styles.stepTitle}>Your card is ready!</h2>
-              <p className={styles.stepDesc}>Download and share to celebrate your hero this Father's Day</p>
+            <div className={styles.body}>
+              <div className={styles.heroBlock}>
+                <h2 className={styles.stepHeading}>Your Photo Is Ready!</h2>
+                <p className={styles.heroSub}>Download and share to celebrate your hero</p>
+              </div>
 
               {/* THE DIGITAL CARD */}
-              <div className={styles.cardWrapper}>
+              <div className={styles.cardPreviewWrap}>
                 <div ref={cardRef} className={styles.digitalCard}>
-                  {/* Card background decoration */}
-                  <div className={styles.cardBgTop} />
-                  <div className={styles.cardBgBottom} />
+                  {/* navy bg fills entirely */}
+                  <div className={styles.dcBorderTop}><SilhouetteStrip color="#F5C518" opacity="0.35" /></div>
+                  <div className={styles.dcBorderBottom}><SilhouetteStrip color="#F5C518" opacity="0.35" flip /></div>
 
-                  {/* Card logo */}
-                  <div className={styles.cardHeader}>
-                    <div className={styles.cardLogoIcon}>
-                      <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
-                        <circle cx="14" cy="14" r="13" stroke="#F5C518" strokeWidth="2"/>
-                        <path d="M14 7v14M7 14h14" stroke="#F5C518" strokeWidth="2.5" strokeLinecap="round"/>
-                      </svg>
-                    </div>
-                    <span className={styles.cardLogoText}>The Yellow Clinic</span>
-                  </div>
+                  {/* corner accents */}
+                  <div className={styles.dcCornerTL} />
+                  <div className={styles.dcCornerBR} />
 
-                  {/* Photo */}
+                  <div className={styles.dcBrand}>The Yellow Brand</div>
+
                   {photo && (
-                    <div className={styles.cardPhotoFrame}>
-                      <img src={photo} alt="Father figure" className={styles.cardPhoto} />
-                      <div className={styles.cardPhotoOverlay} />
+                    <div className={styles.dcPhotoRing}>
+                      <img src={photo} alt="Father" className={styles.dcPhoto} />
                     </div>
                   )}
 
-                  {/* Campaign title */}
-                  <div className={styles.cardTitleBlock}>
-                    <p className={styles.cardTitleSmall}>Lessons I</p>
-                    <p className={styles.cardTitleLarge}>Learned From Him</p>
+                  <div className={styles.dcTitleWrap}>
+                    <p className={styles.dcTitleSmall}>Lessons I</p>
+                    <p className={styles.dcTitleBig}>Learned From Him</p>
                   </div>
 
-                  {/* The lesson */}
-                  <div className={styles.cardLessonBlock}>
-                    <div className={styles.cardLessonLine} />
-                    <p className={styles.cardLessonText}>
-                      He taught me
-                    </p>
-                    <p className={styles.cardLessonQuote}>
-                      "{lessonText}"
-                    </p>
-                    <div className={styles.cardLessonLine} />
-                  </div>
+                  <div className={styles.dcDivider} />
 
-                  {/* Father's Day tag */}
-                  <div className={styles.cardFooterTag}>
+                  <p className={styles.dcHeTaught}>He taught me</p>
+                  <p className={styles.dcLesson}>{lessonText}</p>
+
+                  <div className={styles.dcDivider} />
+
+                  <div className={styles.dcFooter}>
                     <span>Happy Father's Day</span>
-                    <span className={styles.cardTagDot}>•</span>
-                    <span>2025</span>
+                    <span className={styles.dcDot}>·</span>
+                    <span>2026</span>
                   </div>
                 </div>
               </div>
 
-              {/* Consent */}
-              <label className={styles.consentLabel}>
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={e => setConsent(e.target.checked)}
-                  className={styles.consentCheck}
-                />
-                <span className={styles.consentText}>
-                  I give The Yellow Clinic permission to use my card for communications and promotional purposes.
-                </span>
+              <label className={styles.consent}>
+                <input type="checkbox" checked={consent}
+                  onChange={e => setConsent(e.target.checked)} />
+                <span>I give The Yellow Brand permission to use my image for communications purposes.</span>
               </label>
 
-              {/* Actions */}
+              <p className={styles.readyText}>Your photo is ready to download and share.</p>
+
               <button
-                className={`${styles.ctaBtn} ${submitting ? styles.ctaBtnLoading : ''}`}
-                onClick={handleDownload}
-                disabled={submitting}
+                className={`${styles.cta} ${submitting ? styles.ctaLoading : ''}`}
+                onClick={handleDownload} disabled={submitting}
               >
-                {submitting ? 'Preparing...' : (
-                  <>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{marginRight: 6}}>
-                      <path d="M9 2v10M5 8l4 4 4-4M3 15h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Download My Card
-                  </>
-                )}
+                {submitting ? 'Preparing...' : 'Download'}
               </button>
 
               {submitted && (
-                <p className={styles.submittedNote}>
-                  ✓ Your card has been shared with The Yellow Clinic. Thank you!
-                </p>
+                <p className={styles.thankYou}>✓ Shared with The Yellow Brand. Thank you!</p>
               )}
 
-              <div className={styles.bottomActions}>
-                <button className={styles.backBtn} onClick={() => setStep(2)}>← Change Photo</button>
-                <button className={styles.backBtn} onClick={() => {
-                  setStep(1); setSelectedLesson(null); setCustomLesson('');
-                  setPhoto(null); setPhotoFile(null); setConsent(false);
-                  setCardUrl(null); setSubmitted(false);
-                }}>↺ Start Again</button>
+              <div className={styles.twoButtons}>
+                <button className={styles.backBtn} onClick={() => setStep(2)}>Back</button>
+                <button className={styles.backBtn} onClick={resetAll}>Start Again</button>
               </div>
             </div>
           )}
 
-          {/* Footer */}
-          <footer className={styles.footer}>
-            <p>The Yellow Clinic · Excellent Medical &amp; Healthcare Services</p>
-          </footer>
+          {/* ══ BOTTOM BORDER STRIP ══ */}
+          <div className={styles.borderBottom}>
+            <SilhouetteStrip flip />
+          </div>
+
         </div>
       </div>
     </>
+  )
+}
+
+/* ── Inline SVG silhouette strip — matches the MTN border style ── */
+function SilhouetteStrip({ color = '#1B2F6B', opacity = '1', flip = false }) {
+  const figures = [
+    // adult standing
+    'M6 2 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0 M5 6 Q8 5 11 6 L11 14 L9 14 L9 10 L7 10 L7 14 L5 14 Z',
+    // adult with child
+    'M2 2 a1.5 1.5 0 1 1 3 0 a1.5 1.5 0 1 1 -3 0 M1 5 Q3.5 4 6 5 L6 11 L4.5 11 L4.5 8 L2.5 8 L2.5 11 L1 11 Z M8 3.5 a1.2 1.2 0 1 1 2.4 0 a1.2 1.2 0 1 1 -2.4 0 M7.5 6 Q9.2 5.2 11 6 L11 10 L10 10 L10 8 L8.5 8 L8.5 10 L7.5 10 Z',
+    // walking figure
+    'M5 2 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0 M4 6 Q7 4.5 10 6 L9.5 10 L11 15 L9 15 L7.5 11 L6 15 L4 15 L5.5 10 Z',
+    // child small
+    'M5 2.5 a1.5 1.5 0 1 1 3 0 a1.5 1.5 0 1 1 -3 0 M4.5 5.5 Q6.5 4.5 8.5 5.5 L8 9 L9 13 L7.5 13 L6.5 10 L5.5 13 L4 13 L5 9 Z',
+    // tall standing
+    'M5.5 1.5 a2.5 2.5 0 1 1 5 0 a2.5 2.5 0 1 1 -5 0 M4 6 Q8 4 12 6 L11 12 L13 18 L10 18 L8.5 13 L7 18 L4 18 L6 12 Z',
+  ]
+
+  const repeatCount = 12
+  const w = 32
+
+  return (
+    <svg
+      width="100%" height="36" viewBox={`0 0 ${w * repeatCount} 36`}
+      preserveAspectRatio="xMidYMid slice"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ transform: flip ? 'scaleX(-1)' : 'none', display:'block' }}
+    >
+      {Array.from({ length: repeatCount }).map((_, i) => {
+        const fig = figures[i % figures.length]
+        const scale = 0.9 + (i % 3) * 0.08
+        const yOff = flip ? 2 : 36 - 20 * scale
+        return (
+          <path
+            key={i}
+            d={fig}
+            fill={color}
+            opacity={opacity}
+            transform={`translate(${i * w + 4}, ${yOff}) scale(${scale})`}
+          />
+        )
+      })}
+    </svg>
+  )
+}
+
+function CameraIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight:8}}>
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+      <circle cx="12" cy="13" r="4"/>
+    </svg>
+  )
+}
+
+function GalleryIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight:8}}>
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <polyline points="21 15 16 10 5 21"/>
+    </svg>
   )
 }

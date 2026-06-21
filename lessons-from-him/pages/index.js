@@ -47,14 +47,14 @@ export default function Home() {
       const html2canvas = (await import('html2canvas')).default
       const node = cardRef.current
       const renderedWidth = node.offsetWidth
-      // Instagram square export target, regardless of on-screen size
-      const INSTAGRAM_SIZE = 1080
-      const scale = INSTAGRAM_SIZE / renderedWidth
+      // 9:16 Story/Reel export target (1080x1920), regardless of on-screen size
+      const EXPORT_WIDTH = 1080
+      const scale = EXPORT_WIDTH / renderedWidth
 
       const canvas = await html2canvas(node, {
         scale,
         useCORS: true,
-        backgroundColor: '#0a2747',
+        backgroundColor: '#ffffff',
         logging: false,
       })
       const dataUrl = canvas.toDataURL('image/png')
@@ -212,41 +212,39 @@ export default function Home() {
               {/* THE DIGITAL CARD */}
               <div className={styles.cardPreviewWrap}>
                 <div ref={cardRef} className={styles.digitalCard}>
-                  <div className={styles.dcGrain} />
-                  <div className={styles.dcLightLeak} />
                   <div className={styles.dcBorderTop} />
-                  <div className={styles.dcBorderBottom} />
 
-                  {/* corner accents */}
-                  <div className={styles.dcCornerTL} />
-                  <div className={styles.dcCornerBR} />
-                  <div className={styles.dcVignette} />
-
-                  <div className={styles.dcBrand}>The Yellow Brand</div>
-
-                  {photo && (
-                    <div className={styles.dcPhotoRing}>
+                  {/* photo zone — full-bleed, never shrinks to a small circle */}
+                  <div className={styles.dcPhotoZone}>
+                    {photo && (
                       <img src={photo} alt="Father" className={styles.dcPhoto} />
+                    )}
+                    <div className={styles.dcLightLeak} />
+                    <div className={styles.dcGrain} />
+                    <div className={styles.dcPhotoFade} />
+                    <div className={styles.dcBrand}>The Yellow Brand</div>
+                  </div>
+
+                  {/* white text panel */}
+                  <div className={styles.dcTextPanel}>
+                    <div className={styles.dcTitleWrap}>
+                      <p className={styles.dcTitleSmall}>Lessons I</p>
+                      <p className={styles.dcTitleBig}>Learned From Him</p>
                     </div>
-                  )}
 
-                  <div className={styles.dcTitleWrap}>
-                    <p className={styles.dcTitleSmall}>Lessons I</p>
-                    <p className={styles.dcTitleBig}>Learned From Him</p>
+                    <div className={styles.dcDivider} />
+
+                    <p className={styles.dcHeTaught}>He taught me</p>
+                    <p className={styles.dcLesson}>{lessonText}</p>
+
+                    <div className={styles.dcFooter}>
+                      <span>Happy Father's Day</span>
+                      <span className={styles.dcDot}>·</span>
+                      <span>2026</span>
+                    </div>
                   </div>
 
-                  <div className={styles.dcDivider} />
-
-                  <p className={styles.dcHeTaught}>He taught me</p>
-                  <p className={styles.dcLesson}>{lessonText}</p>
-
-                  <div className={styles.dcDivider} />
-
-                  <div className={styles.dcFooter}>
-                    <span>Happy Father's Day</span>
-                    <span className={styles.dcDot}>·</span>
-                    <span>2026</span>
-                  </div>
+                  <div className={styles.dcBorderBottom} />
                 </div>
               </div>
 

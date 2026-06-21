@@ -1,609 +1,441 @@
-/* ── Page Layout ── */
+/* ══════════════════════════════════════════
+   PAGE — white background, centered card
+══════════════════════════════════════════ */
 .page {
   min-height: 100vh;
-  background: linear-gradient(160deg, #0d1a3a 0%, #1B2F6B 45%, #0d1a3a 100%);
+  background: #E8EBF4;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
+  padding: 20px 16px 40px;
 }
 
-.bgDecor1 {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 70%);
-  top: -100px;
-  right: -100px;
-  pointer-events: none;
-}
-
-.bgDecor2 {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(76,175,80,0.06) 0%, transparent 70%);
-  bottom: -80px;
-  left: -80px;
-  pointer-events: none;
-}
-
-/* ── Phone Frame ── */
-.phoneFrame {
+/* ══════════════════════════════════════════
+   OUTER CARD — white, phone-width
+══════════════════════════════════════════ */
+.card {
   width: 100%;
-  max-width: 420px;
-  min-height: 100vh;
-  background: #0f1d45;
-  border-radius: 32px;
-  border: 1px solid rgba(245,197,24,0.2);
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(27,47,107,0.18), 0 2px 8px rgba(27,47,107,0.08);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 0 80px rgba(245,197,24,0.08), 0 40px 80px rgba(0,0,0,0.5);
-  position: relative;
+  min-height: calc(100vh - 40px);
 }
 
-@media (max-width: 480px) {
-  .phoneFrame {
-    border-radius: 0;
-    min-height: 100dvh;
-  }
-  .page {
-    padding: 0;
-  }
+@media (max-width: 440px) {
+  .page { padding: 0; }
+  .card { border-radius: 0; min-height: 100dvh; box-shadow: none; }
 }
 
-/* ── Header ── */
-.header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid rgba(245,197,24,0.12);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(245,197,24,0.03);
-}
-
-.logoArea {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logoIcon {
+/* ══════════════════════════════════════════
+   SILHOUETTE BORDERS — top & bottom
+══════════════════════════════════════════ */
+.borderTop {
+  background: #F5C518;
+  padding: 6px 0 2px;
   flex-shrink: 0;
 }
 
-.logoName {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #F5C518;
-  letter-spacing: 0.3px;
-  line-height: 1.2;
+.borderBottom {
+  background: #F5C518;
+  padding: 2px 0 6px;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
-.logoTagline {
-  display: block;
-  font-size: 9px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.3px;
-  line-height: 1.4;
-}
-
-.stepDots {
+/* ══════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════ */
+.header {
+  background: #1B2F6B;
+  padding: 14px 20px;
   display: flex;
-  gap: 6px;
   align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
 }
+
+.brandName {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F5C518;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.stepDots { display: flex; gap: 6px; align-items: center; }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.25);
+  transition: all 0.3s;
 }
-
 .dotActive {
   background: #F5C518;
-  width: 24px;
+  width: 22px;
   border-radius: 4px;
 }
 
-/* ── Step Content ── */
-.stepContent {
+/* ══════════════════════════════════════════
+   BODY — scrollable content area
+══════════════════════════════════════════ */
+.body {
   flex: 1;
   padding: 24px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  background: #ffffff;
 }
 
-.stepLabel {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: rgba(245,197,24,0.6);
-  font-weight: 500;
-}
+/* ══════════════════════════════════════════
+   HERO BLOCK — Step 1 title
+══════════════════════════════════════════ */
+.heroBlock { text-align: center; }
 
-/* ── Step 1: Title ── */
-.title {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.titleSmall {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.6);
+.heroEyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1B2F6B;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 2px;
 }
 
-.titleLarge {
+.heroTitle {
   font-family: 'Playfair Display', serif;
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
-  color: #ffffff;
-  line-height: 1.05;
+  line-height: 1;
+  margin-bottom: 10px;
 }
+.heroTitleYellow { color: #F5C518; }
+.heroTitleIs { color: #1B2F6B; font-style: italic; font-size: 36px; }
 
-.titleAccent {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 400;
-  color: #F5C518;
-  line-height: 1.2;
-}
-
-.subtitle {
+.heroSub {
   font-size: 13px;
-  color: rgba(255,255,255,0.55);
+  color: #7A85A3;
   line-height: 1.5;
-  margin-bottom: 4px;
+  max-width: 280px;
+  margin: 0 auto;
 }
 
-/* ── Lessons Grid ── */
-.lessonsGrid {
+.stepHeading {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1B2F6B;
+  margin-bottom: 8px;
+}
+
+/* ══════════════════════════════════════════
+   LESSON PILLS — Step 1
+══════════════════════════════════════════ */
+.grid {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.lessonBtn {
+.pill {
   width: 100%;
   text-align: left;
-  padding: 12px 16px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  color: rgba(255,255,255,0.8);
+  padding: 13px 16px;
+  background: #F7F8FC;
+  border: 1.5px solid #E0E4F0;
+  border-radius: 50px;
+  color: #1B2F6B;
   font-size: 13px;
+  font-weight: 500;
   line-height: 1.4;
-  transition: all 0.2s ease;
-  position: relative;
+  transition: all 0.18s ease;
   cursor: pointer;
 }
 
-.lessonBtn:hover {
-  background: rgba(245,197,24,0.06);
-  border-color: rgba(245,197,24,0.3);
-  color: #fff;
-  transform: translateX(2px);
-}
-
-.lessonBtnActive {
-  background: rgba(245,197,24,0.12) !important;
-  border-color: #F5C518 !important;
-  color: #F5C518 !important;
-  font-weight: 500;
-}
-
-.lessonBtnCustom {
-  border-style: dashed;
-  color: rgba(255,255,255,0.5);
-  font-style: italic;
-}
-
-.lessonQuote {
-  color: #F5C518;
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  margin-right: 4px;
-  opacity: 0.7;
-}
-
-/* ── Custom input ── */
-.customInputWrap {
-  position: relative;
-}
-
-.customInput {
-  width: 100%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(245,197,24,0.4);
-  border-radius: 10px;
-  padding: 12px 48px 12px 16px;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.customInput:focus {
+.pill:hover {
+  background: #FFF8D6;
   border-color: #F5C518;
 }
 
-.customInput::placeholder {
-  color: rgba(255,255,255,0.3);
+.pillActive {
+  background: #1B2F6B !important;
+  border-color: #1B2F6B !important;
+  color: #F5C518 !important;
+  font-weight: 600;
+}
+
+.pillCustom {
+  border-style: dashed;
+  color: #7A85A3;
   font-style: italic;
 }
+
+/* ══════════════════════════════════════════
+   CUSTOM INPUT
+══════════════════════════════════════════ */
+.customWrap { position: relative; }
+
+.customInput {
+  width: 100%;
+  padding: 14px 52px 14px 18px;
+  border: 1.5px solid #F5C518;
+  border-radius: 50px;
+  font-size: 14px;
+  color: #1B2F6B;
+  background: #FFFDF0;
+  outline: none;
+}
+.customInput::placeholder { color: #B0B8D0; font-style: italic; }
+.customInput:focus { border-color: #1B2F6B; }
 
 .charCount {
-  position: absolute;
-  right: 12px;
-  top: 50%;
+  position: absolute; right: 16px; top: 50%;
   transform: translateY(-50%);
-  font-size: 10px;
-  color: rgba(255,255,255,0.3);
+  font-size: 10px; color: #B0B8D0;
 }
 
-/* ── CTA Button ── */
-.ctaBtn {
+/* ══════════════════════════════════════════
+   CTA BUTTON
+══════════════════════════════════════════ */
+.cta {
   width: 100%;
   padding: 16px;
-  background: #F5C518;
-  color: #0f1d45;
+  background: #1B2F6B;
+  color: #F5C518;
   font-size: 15px;
   font-weight: 700;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  letter-spacing: 0.3px;
-  margin-top: auto;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  margin-top: 4px;
 }
+.cta:hover { background: #2a4494; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,47,107,0.25); }
+.cta:active { transform: translateY(0); }
 
-.ctaBtn:hover {
-  background: #ffd84d;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(245,197,24,0.3);
-}
-
-.ctaBtn:active {
-  transform: translateY(0);
-}
-
-.ctaBtnDisabled {
-  background: rgba(245,197,24,0.2);
-  color: rgba(255,255,255,0.3);
+.ctaDisabled {
+  background: #C8CFE0;
+  color: #ffffff;
   cursor: not-allowed;
 }
+.ctaDisabled:hover { background: #C8CFE0; transform: none; box-shadow: none; }
 
-.ctaBtnDisabled:hover {
-  background: rgba(245,197,24,0.2);
-  transform: none;
-  box-shadow: none;
-}
+.ctaLoading { background: #7A85A3; cursor: wait; }
 
-.ctaBtnLoading {
-  background: rgba(245,197,24,0.5);
-  cursor: wait;
-}
-
-/* ── Step 2 ── */
-.selectedLessonPreview {
-  background: rgba(245,197,24,0.06);
-  border: 1px solid rgba(245,197,24,0.2);
+/* ══════════════════════════════════════════
+   STEP 2 — lesson preview pill
+══════════════════════════════════════════ */
+.lessonPill {
+  background: #FFF8D6;
+  border: 1.5px solid #F5C518;
   border-radius: 12px;
-  padding: 14px 16px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.75);
-  font-style: italic;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #1B2F6B;
   line-height: 1.5;
   text-align: center;
 }
+.lessonPill strong { color: #1B2F6B; font-weight: 700; }
 
-.previewQuote {
-  font-family: 'Playfair Display', serif;
-  color: #F5C518;
-  font-size: 20px;
-  font-style: normal;
-}
-
-.stepTitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.2;
-}
-
-.stepDesc {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.5;
-}
-
-.photoOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 8px 0;
-}
+/* ══════════════════════════════════════════
+   STEP 2 — photo buttons
+══════════════════════════════════════════ */
+.photoBtns { display: flex; flex-direction: column; gap: 12px; margin: 4px 0; }
 
 .photoBtn {
   width: 100%;
   padding: 16px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
-  color: #fff;
+  background: #1B2F6B;
+  color: #ffffff;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
-
-.photoBtn:hover {
-  background: rgba(245,197,24,0.08);
-  border-color: rgba(245,197,24,0.35);
-  color: #F5C518;
-}
+.photoBtn:hover { background: #2a4494; }
 
 .backBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px;
-  color: rgba(255,255,255,0.45);
+  border: 1.5px solid #E0E4F0;
+  border-radius: 50px;
+  color: #7A85A3;
   font-size: 13px;
-  padding: 10px 16px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.backBtn:hover {
-  border-color: rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.7);
-}
-
-.bottomActions {
-  display: flex;
-  gap: 10px;
-}
-
-.bottomActions .backBtn {
+  font-weight: 600;
+  padding: 12px 20px;
+  transition: all 0.2s;
   flex: 1;
 }
+.backBtn:hover { border-color: #1B2F6B; color: #1B2F6B; }
 
-/* ── Step 3: Digital Card ── */
-.cardWrapper {
+.twoButtons { display: flex; gap: 10px; }
+
+/* ══════════════════════════════════════════
+   STEP 3 — DIGITAL CARD
+══════════════════════════════════════════ */
+.cardPreviewWrap {
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.2);
+  box-shadow: 0 8px 32px rgba(27,47,107,0.2);
 }
 
 .digitalCard {
   width: 100%;
-  aspect-ratio: 1 / 1.1;
-  background: #0c1730;
+  aspect-ratio: 9 / 16;
+  background: #1B2F6B;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
+  gap: 10px;
 }
 
-.cardBgTop {
+/* top/bottom silhouette strips inside card */
+.dcBorderTop {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #F5C518, #4CAF50, #F5C518);
+  top: 0; left: 0; right: 0;
+  background: rgba(245,197,24,0.08);
+  padding: 4px 0 0;
+}
+.dcBorderBottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(245,197,24,0.08);
+  padding: 0 0 4px;
+  transform: scaleY(-1);
 }
 
-.cardBgBottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #4CAF50, #F5C518, #4CAF50);
+/* corner glow accents */
+.dcCornerTL {
+  position: absolute; top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle at top right, rgba(245,197,24,0.15), transparent 70%);
+  pointer-events: none;
+}
+.dcCornerBR {
+  position: absolute; bottom: 0; left: 0;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle at bottom left, rgba(245,197,24,0.1), transparent 70%);
+  pointer-events: none;
 }
 
-/* Navy corner decorations */
-.digitalCard::before {
-  content: '';
+.dcBrand {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 44px; left: 0; right: 0;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,197,24,0.6);
+}
+
+.dcPhotoRing {
   width: 120px;
   height: 120px;
-  background: radial-gradient(circle at top right, rgba(245,197,24,0.12), transparent 70%);
-  pointer-events: none;
-}
-
-.digitalCard::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle at bottom left, rgba(76,175,80,0.1), transparent 70%);
-  pointer-events: none;
-}
-
-.cardHeader {
-  position: absolute;
-  top: 14px;
-  left: 16px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  z-index: 2;
-}
-
-.cardLogoIcon {
-  opacity: 0.9;
-}
-
-.cardLogoText {
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(245,197,24,0.75);
-  letter-spacing: 0.5px;
-}
-
-.cardPhotoFrame {
-  width: 130px;
-  height: 130px;
   border-radius: 50%;
-  overflow: hidden;
   border: 3px solid #F5C518;
-  box-shadow: 0 0 0 6px rgba(245,197,24,0.12), 0 8px 24px rgba(0,0,0,0.4);
-  margin-bottom: 16px;
-  position: relative;
+  box-shadow: 0 0 0 6px rgba(245,197,24,0.15), 0 8px 24px rgba(0,0,0,0.4);
+  overflow: hidden;
   flex-shrink: 0;
 }
-
-.cardPhoto {
-  width: 100%;
-  height: 100%;
+.dcPhoto {
+  width: 100%; height: 100%;
   object-fit: cover;
 }
 
-.cardPhotoOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(12,23,48,0.3) 100%);
-}
-
-.cardTitleBlock {
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.cardTitleSmall {
-  font-size: 11px;
+.dcTitleWrap { text-align: center; }
+.dcTitleSmall {
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.4);
   font-family: 'Inter', sans-serif;
 }
-
-.cardTitleLarge {
+.dcTitleBig {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
-.cardLessonBlock {
-  text-align: center;
-  padding: 0 8px;
-}
-
-.cardLessonLine {
+.dcDivider {
+  width: 80%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245,197,24,0.4), transparent);
-  margin: 10px 0;
+  background: linear-gradient(90deg, transparent, rgba(245,197,24,0.45), transparent);
 }
 
-.cardLessonText {
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
+.dcHeTaught {
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 6px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
 }
-
-.cardLessonQuote {
+.dcLesson {
   font-family: 'Playfair Display', serif;
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
   color: #F5C518;
   line-height: 1.4;
+  text-align: center;
+  padding: 0 12px;
 }
 
-.cardFooterTag {
-  position: absolute;
-  bottom: 14px;
+.dcFooter {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 1px;
+  font-size: 9px;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.3);
 }
+.dcDot { color: #F5C518; opacity: 0.5; }
 
-.cardTagDot {
-  color: #F5C518;
-  opacity: 0.5;
-}
-
-/* ── Consent ── */
-.consentLabel {
+/* ══════════════════════════════════════════
+   CONSENT + MISC
+══════════════════════════════════════════ */
+.consent {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   cursor: pointer;
 }
-
-.consentCheck {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  accent-color: #F5C518;
+.consent input[type="checkbox"] {
+  width: 17px; height: 17px;
+  accent-color: #1B2F6B;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
   cursor: pointer;
 }
-
-.consentText {
+.consent span {
   font-size: 12px;
-  color: rgba(255,255,255,0.45);
+  color: #7A85A3;
   line-height: 1.5;
 }
 
-.submittedNote {
+.readyText {
   font-size: 12px;
-  color: #4CAF50;
-  text-align: center;
-  padding: 8px 12px;
-  background: rgba(76,175,80,0.08);
-  border-radius: 8px;
-  border: 1px solid rgba(76,175,80,0.2);
-}
-
-/* ── Footer ── */
-.footer {
-  padding: 12px 20px;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  color: #7A85A3;
   text-align: center;
 }
 
-.footer p {
-  font-size: 10px;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.5px;
+.thankYou {
+  font-size: 12px;
+  color: #1B2F6B;
+  text-align: center;
+  padding: 10px 14px;
+  background: #FFF8D6;
+  border-radius: 10px;
+  border: 1px solid #F5C518;
 }

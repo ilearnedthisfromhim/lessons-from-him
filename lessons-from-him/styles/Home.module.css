@@ -1,0 +1,609 @@
+/* ── Page Layout ── */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0d1a3a 0%, #1B2F6B 45%, #0d1a3a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgDecor1 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,197,24,0.08) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+  pointer-events: none;
+}
+
+.bgDecor2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76,175,80,0.06) 0%, transparent 70%);
+  bottom: -80px;
+  left: -80px;
+  pointer-events: none;
+}
+
+/* ── Phone Frame ── */
+.phoneFrame {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  background: #0f1d45;
+  border-radius: 32px;
+  border: 1px solid rgba(245,197,24,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 80px rgba(245,197,24,0.08), 0 40px 80px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  .phoneFrame {
+    border-radius: 0;
+    min-height: 100dvh;
+  }
+  .page {
+    padding: 0;
+  }
+}
+
+/* ── Header ── */
+.header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(245,197,24,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(245,197,24,0.03);
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  flex-shrink: 0;
+}
+
+.logoName {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F5C518;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.logoTagline {
+  display: block;
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+.stepDots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  background: #F5C518;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ── Step Content ── */
+.stepContent {
+  flex: 1;
+  padding: 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.stepLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(245,197,24,0.6);
+  font-weight: 500;
+}
+
+/* ── Step 1: Title ── */
+.title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.titleSmall {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.titleLarge {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.05;
+}
+
+.titleAccent {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 400;
+  color: #F5C518;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+/* ── Lessons Grid ── */
+.lessonsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lessonBtn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.lessonBtn:hover {
+  background: rgba(245,197,24,0.06);
+  border-color: rgba(245,197,24,0.3);
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.lessonBtnActive {
+  background: rgba(245,197,24,0.12) !important;
+  border-color: #F5C518 !important;
+  color: #F5C518 !important;
+  font-weight: 500;
+}
+
+.lessonBtnCustom {
+  border-style: dashed;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+
+.lessonQuote {
+  color: #F5C518;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  margin-right: 4px;
+  opacity: 0.7;
+}
+
+/* ── Custom input ── */
+.customInputWrap {
+  position: relative;
+}
+
+.customInput {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(245,197,24,0.4);
+  border-radius: 10px;
+  padding: 12px 48px 12px 16px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.customInput:focus {
+  border-color: #F5C518;
+}
+
+.customInput::placeholder {
+  color: rgba(255,255,255,0.3);
+  font-style: italic;
+}
+
+.charCount {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── CTA Button ── */
+.ctaBtn {
+  width: 100%;
+  padding: 16px;
+  background: #F5C518;
+  color: #0f1d45;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+  margin-top: auto;
+}
+
+.ctaBtn:hover {
+  background: #ffd84d;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(245,197,24,0.3);
+}
+
+.ctaBtn:active {
+  transform: translateY(0);
+}
+
+.ctaBtnDisabled {
+  background: rgba(245,197,24,0.2);
+  color: rgba(255,255,255,0.3);
+  cursor: not-allowed;
+}
+
+.ctaBtnDisabled:hover {
+  background: rgba(245,197,24,0.2);
+  transform: none;
+  box-shadow: none;
+}
+
+.ctaBtnLoading {
+  background: rgba(245,197,24,0.5);
+  cursor: wait;
+}
+
+/* ── Step 2 ── */
+.selectedLessonPreview {
+  background: rgba(245,197,24,0.06);
+  border: 1px solid rgba(245,197,24,0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.previewQuote {
+  font-family: 'Playfair Display', serif;
+  color: #F5C518;
+  font-size: 20px;
+  font-style: normal;
+}
+
+.stepTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.stepDesc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+.photoOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.photoBtn {
+  width: 100%;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.photoBtn:hover {
+  background: rgba(245,197,24,0.08);
+  border-color: rgba(245,197,24,0.35);
+  color: #F5C518;
+}
+
+.backBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.45);
+  font-size: 13px;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.7);
+}
+
+.bottomActions {
+  display: flex;
+  gap: 10px;
+}
+
+.bottomActions .backBtn {
+  flex: 1;
+}
+
+/* ── Step 3: Digital Card ── */
+.cardWrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.2);
+}
+
+.digitalCard {
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  background: #0c1730;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cardBgTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #F5C518, #4CAF50, #F5C518);
+}
+
+.cardBgBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #F5C518, #4CAF50);
+}
+
+/* Navy corner decorations */
+.digitalCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at top right, rgba(245,197,24,0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.digitalCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at bottom left, rgba(76,175,80,0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.cardHeader {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  z-index: 2;
+}
+
+.cardLogoIcon {
+  opacity: 0.9;
+}
+
+.cardLogoText {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(245,197,24,0.75);
+  letter-spacing: 0.5px;
+}
+
+.cardPhotoFrame {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #F5C518;
+  box-shadow: 0 0 0 6px rgba(245,197,24,0.12), 0 8px 24px rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cardPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardPhotoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(12,23,48,0.3) 100%);
+}
+
+.cardTitleBlock {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.cardTitleSmall {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Inter', sans-serif;
+}
+
+.cardTitleLarge {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.cardLessonBlock {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.cardLessonLine {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,197,24,0.4), transparent);
+  margin: 10px 0;
+}
+
+.cardLessonText {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+
+.cardLessonQuote {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #F5C518;
+  line-height: 1.4;
+}
+
+.cardFooterTag {
+  position: absolute;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cardTagDot {
+  color: #F5C518;
+  opacity: 0.5;
+}
+
+/* ── Consent ── */
+.consentLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.consentCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  accent-color: #F5C518;
+  flex-shrink: 0;
+  margin-top: 1px;
+  cursor: pointer;
+}
+
+.consentText {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+.submittedNote {
+  font-size: 12px;
+  color: #4CAF50;
+  text-align: center;
+  padding: 8px 12px;
+  background: rgba(76,175,80,0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(76,175,80,0.2);
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 12px 20px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.5px;
+}

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --navy: #1B2F6B;
+  --navy-dark: #0f1d45;
+  --navy-light: #2a4494;
+  --yellow: #F5C518;
+  --yellow-dark: #d4a800;
+  --yellow-light: #ffd84d;
+  --green: #4CAF50;
+  --green-dark: #357a38;
+  --white: #ffffff;
+  --off-white: #f8f9ff;
+  --gray-100: #f0f2f8;
+  --gray-300: #c8cfe0;
+  --gray-500: #7a85a3;
+  --gray-700: #3d4560;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-dark);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+input[type="text"], textarea {
+  font-family: 'Inter', sans-serif;
+}

@@ -16,9 +16,6 @@ const LESSONS = [
   { id: 'custom', text: 'custom' },
 ]
 
-// Father silhouette border SVG pattern as a data URI
-const SILHOUETTE_BORDER = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='8' r='4' fill='%231B2F6B' opacity='0.18'/%3E%3Cpath d='M12 28 Q20 14 28 28' fill='%231B2F6B' opacity='0.18'/%3E%3Cpath d='M14 28 L12 38 M26 28 L28 38 M20 28 L20 38' stroke='%231B2F6B' stroke-width='2.5' opacity='0.18' stroke-linecap='round'/%3E%3C/svg%3E")`
-
 export default function Home() {
   const [step, setStep]                     = useState(1)
   const [selectedLesson, setSelectedLesson] = useState(null)
@@ -51,7 +48,7 @@ export default function Home() {
       const canvas = await html2canvas(cardRef.current, {
         scale: 3,
         useCORS: true,
-        backgroundColor: '#1B2F6B',
+        backgroundColor: '#0a2747',
         logging: false,
       })
       const dataUrl = canvas.toDataURL('image/png')
@@ -94,16 +91,14 @@ export default function Home() {
         <title>Lessons I Learned From Him — The Yellow Brand</title>
         <meta name="description" content="Share the lesson your father figure taught you." />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="theme-color" content="#1B2F6B" />
+        <meta name="theme-color" content="#0a2747" />
       </Head>
 
       <div className={styles.page}>
         <div className={styles.card}>
 
-          {/* ══ TOP BORDER STRIP with silhouettes ══ */}
-          <div className={styles.borderTop}>
-            <SilhouetteStrip />
-          </div>
+          {/* ══ TOP ACCENT STRIP ══ */}
+          <div className={styles.borderTop} />
 
           {/* ══ HEADER ══ */}
           <div className={styles.header}>
@@ -211,9 +206,8 @@ export default function Home() {
               {/* THE DIGITAL CARD */}
               <div className={styles.cardPreviewWrap}>
                 <div ref={cardRef} className={styles.digitalCard}>
-                  {/* navy bg fills entirely */}
-                  <div className={styles.dcBorderTop}><SilhouetteStrip color="#F5C518" opacity="0.35" /></div>
-                  <div className={styles.dcBorderBottom}><SilhouetteStrip color="#F5C518" opacity="0.35" flip /></div>
+                  <div className={styles.dcBorderTop} />
+                  <div className={styles.dcBorderBottom} />
 
                   {/* corner accents */}
                   <div className={styles.dcCornerTL} />
@@ -273,57 +267,12 @@ export default function Home() {
             </div>
           )}
 
-          {/* ══ BOTTOM BORDER STRIP ══ */}
-          <div className={styles.borderBottom}>
-            <SilhouetteStrip flip />
-          </div>
+          {/* ══ BOTTOM ACCENT STRIP ══ */}
+          <div className={styles.borderBottom} />
 
         </div>
       </div>
     </>
-  )
-}
-
-/* ── Inline SVG silhouette strip — matches the MTN border style ── */
-function SilhouetteStrip({ color = '#1B2F6B', opacity = '1', flip = false }) {
-  const figures = [
-    // adult standing
-    'M6 2 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0 M5 6 Q8 5 11 6 L11 14 L9 14 L9 10 L7 10 L7 14 L5 14 Z',
-    // adult with child
-    'M2 2 a1.5 1.5 0 1 1 3 0 a1.5 1.5 0 1 1 -3 0 M1 5 Q3.5 4 6 5 L6 11 L4.5 11 L4.5 8 L2.5 8 L2.5 11 L1 11 Z M8 3.5 a1.2 1.2 0 1 1 2.4 0 a1.2 1.2 0 1 1 -2.4 0 M7.5 6 Q9.2 5.2 11 6 L11 10 L10 10 L10 8 L8.5 8 L8.5 10 L7.5 10 Z',
-    // walking figure
-    'M5 2 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0 M4 6 Q7 4.5 10 6 L9.5 10 L11 15 L9 15 L7.5 11 L6 15 L4 15 L5.5 10 Z',
-    // child small
-    'M5 2.5 a1.5 1.5 0 1 1 3 0 a1.5 1.5 0 1 1 -3 0 M4.5 5.5 Q6.5 4.5 8.5 5.5 L8 9 L9 13 L7.5 13 L6.5 10 L5.5 13 L4 13 L5 9 Z',
-    // tall standing
-    'M5.5 1.5 a2.5 2.5 0 1 1 5 0 a2.5 2.5 0 1 1 -5 0 M4 6 Q8 4 12 6 L11 12 L13 18 L10 18 L8.5 13 L7 18 L4 18 L6 12 Z',
-  ]
-
-  const repeatCount = 12
-  const w = 32
-
-  return (
-    <svg
-      width="100%" height="36" viewBox={`0 0 ${w * repeatCount} 36`}
-      preserveAspectRatio="xMidYMid slice"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ transform: flip ? 'scaleX(-1)' : 'none', display:'block' }}
-    >
-      {Array.from({ length: repeatCount }).map((_, i) => {
-        const fig = figures[i % figures.length]
-        const scale = 0.9 + (i % 3) * 0.08
-        const yOff = flip ? 2 : 36 - 20 * scale
-        return (
-          <path
-            key={i}
-            d={fig}
-            fill={color}
-            opacity={opacity}
-            transform={`translate(${i * w + 4}, ${yOff}) scale(${scale})`}
-          />
-        )
-      })}
-    </svg>
   )
 }
 

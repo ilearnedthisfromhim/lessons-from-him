@@ -45,8 +45,14 @@ export default function Home() {
     setSubmitting(true)
     try {
       const html2canvas = (await import('html2canvas')).default
-      const canvas = await html2canvas(cardRef.current, {
-        scale: 3,
+      const node = cardRef.current
+      const renderedWidth = node.offsetWidth
+      // Instagram square export target, regardless of on-screen size
+      const INSTAGRAM_SIZE = 1080
+      const scale = INSTAGRAM_SIZE / renderedWidth
+
+      const canvas = await html2canvas(node, {
+        scale,
         useCORS: true,
         backgroundColor: '#0a2747',
         logging: false,
@@ -206,12 +212,15 @@ export default function Home() {
               {/* THE DIGITAL CARD */}
               <div className={styles.cardPreviewWrap}>
                 <div ref={cardRef} className={styles.digitalCard}>
+                  <div className={styles.dcGrain} />
+                  <div className={styles.dcLightLeak} />
                   <div className={styles.dcBorderTop} />
                   <div className={styles.dcBorderBottom} />
 
                   {/* corner accents */}
                   <div className={styles.dcCornerTL} />
                   <div className={styles.dcCornerBR} />
+                  <div className={styles.dcVignette} />
 
                   <div className={styles.dcBrand}>The Yellow Brand</div>
 

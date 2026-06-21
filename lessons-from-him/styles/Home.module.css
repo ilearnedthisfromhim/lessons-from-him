@@ -1,28 +1,33 @@
 /* ══════════════════════════════════════════
-   PAGE — white background, centered card
+   The Yellow Brand — Lessons From Him
+   Design system matches the Yellow Pharmacy
+   site: navy #0a2747, yellow #fcef10, Inter.
 ══════════════════════════════════════════ */
+
 .page {
   min-height: 100vh;
-  background: #E8EBF4;
+  background: linear-gradient(165deg, #0a2747 0%, #163b6b 55%, #0a2747 100%);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 20px 16px 40px;
+  padding: 32px 16px 48px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ══════════════════════════════════════════
-   OUTER CARD — white, phone-width
+   OUTER CARD
 ══════════════════════════════════════════ */
 .card {
   width: 100%;
-  max-width: 400px;
+  max-width: 408px;
   background: #ffffff;
-  border-radius: 28px;
+  border-radius: 32px;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(27,47,107,0.18), 0 2px 8px rgba(27,47,107,0.08);
+  box-shadow: 0 24px 60px rgba(5,15,30,0.45), 0 4px 16px rgba(5,15,30,0.25);
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - 64px);
+  position: relative;
 }
 
 @media (max-width: 440px) {
@@ -31,17 +36,18 @@
 }
 
 /* ══════════════════════════════════════════
-   SILHOUETTE BORDERS — top & bottom
+   TOP / BOTTOM ACCENT STRIPS
+   A confident solid yellow rule, no clipart.
 ══════════════════════════════════════════ */
 .borderTop {
-  background: #F5C518;
-  padding: 6px 0 2px;
+  height: 6px;
+  background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
   flex-shrink: 0;
 }
 
 .borderBottom {
-  background: #F5C518;
-  padding: 2px 0 6px;
+  height: 6px;
+  background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
   margin-top: auto;
   flex-shrink: 0;
 }
@@ -50,8 +56,8 @@
    HEADER
 ══════════════════════════════════════════ */
 .header {
-  background: #1B2F6B;
-  padding: 14px 20px;
+  background: #0a2747;
+  padding: 16px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,10 +65,10 @@
 }
 
 .brandName {
-  font-size: 13px;
-  font-weight: 700;
-  color: #F5C518;
-  letter-spacing: 0.5px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fcef10;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
 }
 
@@ -71,66 +77,82 @@
 .dot {
   width: 7px; height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.22);
   transition: all 0.3s;
 }
 .dotActive {
-  background: #F5C518;
+  background: #fcef10;
   width: 22px;
   border-radius: 4px;
 }
 
 /* ══════════════════════════════════════════
-   BODY — scrollable content area
+   BODY
 ══════════════════════════════════════════ */
 .body {
   flex: 1;
-  padding: 24px 20px 20px;
+  padding: 30px 24px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   overflow-y: auto;
   background: #ffffff;
 }
 
 /* ══════════════════════════════════════════
    HERO BLOCK — Step 1 title
+   Mixed-weight treatment: light italic word,
+   then a big bold display word in navy/yellow.
 ══════════════════════════════════════════ */
 .heroBlock { text-align: center; }
 
 .heroEyebrow {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1B2F6B;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  color: #0a2747;
+  margin-bottom: 0;
+  letter-spacing: 0;
 }
 
 .heroTitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 42px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
 }
-.heroTitleYellow { color: #F5C518; }
-.heroTitleIs { color: #1B2F6B; font-style: italic; font-size: 36px; }
+.heroTitleYellow {
+  color: #0a2747;
+  background: #fcef10;
+  padding: 0 8px;
+  border-radius: 8px;
+  display: inline-block;
+}
+.heroTitleIs {
+  color: #0a2747;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 32px;
+}
 
 .heroSub {
-  font-size: 13px;
-  color: #7A85A3;
-  line-height: 1.5;
-  max-width: 280px;
+  font-size: 13.5px;
+  color: #5a6e7f;
+  line-height: 1.55;
+  max-width: 290px;
   margin: 0 auto;
 }
 
 .stepHeading {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: #1B2F6B;
-  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0a2747;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
 }
 
 /* ══════════════════════════════════════════
@@ -139,40 +161,41 @@
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .pill {
   width: 100%;
   text-align: left;
-  padding: 13px 16px;
-  background: #F7F8FC;
-  border: 1.5px solid #E0E4F0;
+  padding: 14px 18px;
+  background: #f5f7fa;
+  border: 1.5px solid #e4eaf0;
   border-radius: 50px;
-  color: #1B2F6B;
-  font-size: 13px;
-  font-weight: 500;
+  color: #0a2747;
+  font-size: 13.5px;
+  font-weight: 600;
   line-height: 1.4;
   transition: all 0.18s ease;
   cursor: pointer;
 }
 
 .pill:hover {
-  background: #FFF8D6;
-  border-color: #F5C518;
+  background: #fdfbe0;
+  border-color: #fcef10;
 }
 
 .pillActive {
-  background: #1B2F6B !important;
-  border-color: #1B2F6B !important;
-  color: #F5C518 !important;
-  font-weight: 600;
+  background: #0a2747 !important;
+  border-color: #0a2747 !important;
+  color: #fcef10 !important;
+  font-weight: 700;
 }
 
 .pillCustom {
   border-style: dashed;
-  color: #7A85A3;
+  color: #5a6e7f;
   font-style: italic;
+  font-weight: 500;
 }
 
 /* ══════════════════════════════════════════
@@ -182,64 +205,70 @@
 
 .customInput {
   width: 100%;
-  padding: 14px 52px 14px 18px;
-  border: 1.5px solid #F5C518;
+  padding: 15px 56px 15px 20px;
+  border: 1.5px solid #fcef10;
   border-radius: 50px;
   font-size: 14px;
-  color: #1B2F6B;
-  background: #FFFDF0;
+  color: #0a2747;
+  background: #fffef0;
   outline: none;
+  font-family: 'Inter', sans-serif;
 }
-.customInput::placeholder { color: #B0B8D0; font-style: italic; }
-.customInput:focus { border-color: #1B2F6B; }
+.customInput::placeholder { color: #aab4c4; font-style: italic; }
+.customInput:focus { border-color: #0a2747; box-shadow: 0 0 0 3px rgba(252,239,16,0.3); }
 
 .charCount {
-  position: absolute; right: 16px; top: 50%;
+  position: absolute; right: 18px; top: 50%;
   transform: translateY(-50%);
-  font-size: 10px; color: #B0B8D0;
+  font-size: 10.5px; color: #aab4c4;
+  font-weight: 600;
 }
 
 /* ══════════════════════════════════════════
-   CTA BUTTON
+   CTA BUTTON — matches site-wide btn-join
 ══════════════════════════════════════════ */
 .cta {
   width: 100%;
   padding: 16px;
-  background: #1B2F6B;
-  color: #F5C518;
+  background: #0a2747;
+  color: #fcef10;
   font-size: 15px;
   font-weight: 700;
   border-radius: 50px;
-  letter-spacing: 0.5px;
-  transition: all 0.2s;
+  letter-spacing: 0.3px;
+  transition: all 0.25s;
   margin-top: 4px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
-.cta:hover { background: #2a4494; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,47,107,0.25); }
+.cta:hover { background: #fcef10; color: #0a2747; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(10,39,71,0.2); }
 .cta:active { transform: translateY(0); }
 
 .ctaDisabled {
-  background: #C8CFE0;
+  background: #cdd5e0;
   color: #ffffff;
   cursor: not-allowed;
 }
-.ctaDisabled:hover { background: #C8CFE0; transform: none; box-shadow: none; }
+.ctaDisabled:hover { background: #cdd5e0; color: #ffffff; transform: none; box-shadow: none; }
 
-.ctaLoading { background: #7A85A3; cursor: wait; }
+.ctaLoading { background: #5a6e7f; cursor: wait; }
+.ctaLoading:hover { background: #5a6e7f; color: #fcef10; transform: none; box-shadow: none; }
 
 /* ══════════════════════════════════════════
    STEP 2 — lesson preview pill
 ══════════════════════════════════════════ */
 .lessonPill {
-  background: #FFF8D6;
-  border: 1.5px solid #F5C518;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 13px;
-  color: #1B2F6B;
-  line-height: 1.5;
+  background: #fdfbe0;
+  border: 1.5px solid #fcef10;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  color: #0a2747;
+  line-height: 1.55;
   text-align: center;
 }
-.lessonPill strong { color: #1B2F6B; font-weight: 700; }
+.lessonPill strong { color: #0a2747; font-weight: 700; }
 
 /* ══════════════════════════════════════════
    STEP 2 — photo buttons
@@ -249,7 +278,7 @@
 .photoBtn {
   width: 100%;
   padding: 16px;
-  background: #1B2F6B;
+  background: #0a2747;
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
@@ -258,95 +287,102 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
-.photoBtn:hover { background: #2a4494; }
+.photoBtn:hover { background: #163b6b; transform: translateY(-1px); }
 
 .backBtn {
   background: transparent;
-  border: 1.5px solid #E0E4F0;
+  border: 1.5px solid #e4eaf0;
   border-radius: 50px;
-  color: #7A85A3;
+  color: #5a6e7f;
   font-size: 13px;
-  font-weight: 600;
-  padding: 12px 20px;
+  font-weight: 700;
+  padding: 13px 20px;
   transition: all 0.2s;
   flex: 1;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
-.backBtn:hover { border-color: #1B2F6B; color: #1B2F6B; }
+.backBtn:hover { border-color: #0a2747; color: #0a2747; }
 
 .twoButtons { display: flex; gap: 10px; }
 
 /* ══════════════════════════════════════════
    STEP 3 — DIGITAL CARD
+   This is the shareable artifact. Same brand
+   system, kept clean — no decorative clutter.
 ══════════════════════════════════════════ */
 .cardPreviewWrap {
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(27,47,107,0.2);
+  box-shadow: 0 16px 40px rgba(10,39,71,0.28);
 }
 
 .digitalCard {
   width: 100%;
   aspect-ratio: 9 / 16;
-  background: #1B2F6B;
+  background: linear-gradient(165deg, #0a2747 0%, #163b6b 60%, #0a2747 100%);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  gap: 10px;
+  padding: 24px 18px;
+  gap: 14px;
 }
 
-/* top/bottom silhouette strips inside card */
+/* slim accent rules instead of border clutter */
 .dcBorderTop {
   position: absolute;
   top: 0; left: 0; right: 0;
-  background: rgba(245,197,24,0.08);
-  padding: 4px 0 0;
+  height: 5px;
+  background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
 }
 .dcBorderBottom {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  background: rgba(245,197,24,0.08);
-  padding: 0 0 4px;
-  transform: scaleY(-1);
+  height: 5px;
+  background: linear-gradient(90deg, #fcef10 0%, #fff6a8 50%, #fcef10 100%);
 }
 
-/* corner glow accents */
+/* soft corner glow accents */
 .dcCornerTL {
   position: absolute; top: 0; right: 0;
-  width: 120px; height: 120px;
-  background: radial-gradient(circle at top right, rgba(245,197,24,0.15), transparent 70%);
+  width: 140px; height: 140px;
+  background: radial-gradient(circle at top right, rgba(252,239,16,0.16), transparent 70%);
   pointer-events: none;
 }
 .dcCornerBR {
   position: absolute; bottom: 0; left: 0;
-  width: 100px; height: 100px;
-  background: radial-gradient(circle at bottom left, rgba(245,197,24,0.1), transparent 70%);
+  width: 120px; height: 120px;
+  background: radial-gradient(circle at bottom left, rgba(252,239,16,0.1), transparent 70%);
   pointer-events: none;
 }
 
 .dcBrand {
   position: absolute;
-  top: 44px; left: 0; right: 0;
+  top: 18px; left: 0; right: 0;
   text-align: center;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(245,197,24,0.6);
+  color: rgba(252,239,16,0.65);
 }
 
 .dcPhotoRing {
-  width: 120px;
-  height: 120px;
+  width: 132px;
+  height: 132px;
   border-radius: 50%;
-  border: 3px solid #F5C518;
-  box-shadow: 0 0 0 6px rgba(245,197,24,0.15), 0 8px 24px rgba(0,0,0,0.4);
+  border: 3px solid #fcef10;
+  box-shadow: 0 0 0 6px rgba(252,239,16,0.16), 0 10px 28px rgba(0,0,0,0.4);
   overflow: hidden;
   flex-shrink: 0;
+  margin-top: 6px;
 }
 .dcPhoto {
   width: 100%; height: 100%;
@@ -355,52 +391,57 @@
 
 .dcTitleWrap { text-align: center; }
 .dcTitleSmall {
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.45);
   font-family: 'Inter', sans-serif;
+  font-weight: 600;
 }
 .dcTitleBig {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
   color: #ffffff;
-  line-height: 1.15;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
 }
 
 .dcDivider {
-  width: 80%;
+  width: 70%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245,197,24,0.45), transparent);
+  background: linear-gradient(90deg, transparent, rgba(252,239,16,0.5), transparent);
 }
 
 .dcHeTaught {
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.45);
+  font-weight: 600;
 }
 .dcLesson {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
   font-style: italic;
-  color: #F5C518;
-  line-height: 1.4;
+  font-weight: 600;
+  color: #fcef10;
+  line-height: 1.45;
   text-align: center;
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
 .dcFooter {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 9px;
+  gap: 7px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.35);
+  font-weight: 600;
 }
-.dcDot { color: #F5C518; opacity: 0.5; }
+.dcDot { color: #fcef10; opacity: 0.6; }
 
 /* ══════════════════════════════════════════
    CONSENT + MISC
@@ -412,30 +453,31 @@
   cursor: pointer;
 }
 .consent input[type="checkbox"] {
-  width: 17px; height: 17px;
-  accent-color: #1B2F6B;
+  width: 18px; height: 18px;
+  accent-color: #0a2747;
   flex-shrink: 0;
   margin-top: 2px;
   cursor: pointer;
 }
 .consent span {
   font-size: 12px;
-  color: #7A85A3;
-  line-height: 1.5;
+  color: #5a6e7f;
+  line-height: 1.55;
 }
 
 .readyText {
-  font-size: 12px;
-  color: #7A85A3;
+  font-size: 12.5px;
+  color: #5a6e7f;
   text-align: center;
 }
 
 .thankYou {
-  font-size: 12px;
-  color: #1B2F6B;
+  font-size: 12.5px;
+  color: #0a2747;
   text-align: center;
-  padding: 10px 14px;
-  background: #FFF8D6;
-  border-radius: 10px;
-  border: 1px solid #F5C518;
+  padding: 12px 16px;
+  background: #fdfbe0;
+  border-radius: 12px;
+  border: 1px solid #fcef10;
+  font-weight: 600;
 }

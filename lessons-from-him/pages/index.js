@@ -54,7 +54,7 @@ export default function Home() {
       const canvas = await html2canvas(node, {
         scale,
         useCORS: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#0a2747',
         logging: false,
       })
       const dataUrl = canvas.toDataURL('image/png')
@@ -212,46 +212,28 @@ export default function Home() {
               {/* THE DIGITAL CARD */}
               <div className={styles.cardPreviewWrap}>
                 <div ref={cardRef} className={styles.digitalCard}>
-                  <div className={styles.dcBorderTop} />
+                  {photo && (
+                    <img
+                      src={photo}
+                      alt="Father"
+                      className={styles.dcPhoto}
+                      width="1080"
+                      height="1920"
+                      decoding="sync"
+                    />
+                  )}
 
-                  {/* photo zone — full-bleed, never shrinks to a small circle */}
-                  <div className={styles.dcPhotoZone}>
-                    {photo && (
-                      <img
-                        src={photo}
-                        alt="Father"
-                        className={styles.dcPhoto}
-                        width="1080"
-                        height="1152"
-                        decoding="sync"
-                      />
-                    )}
-                    <div className={styles.dcLightLeak} />
-                    <div className={styles.dcGrain} />
-                    <div className={styles.dcPhotoFade} />
-                    <div className={styles.dcBrand}>The Yellow Brand</div>
+                  <div className={styles.dcHeadline}>
+                    <p className={styles.dcHeadlineLine}>He taught me</p>
+                    <p className={styles.dcHeadlineLine}>
+                      <span className={styles.dcHeadlineAccent}>{lessonText}</span>
+                    </p>
                   </div>
 
-                  {/* white text panel */}
-                  <div className={styles.dcTextPanel}>
-                    <div className={styles.dcTitleWrap}>
-                      <p className={styles.dcTitleSmall}>Lessons I</p>
-                      <p className={styles.dcTitleBig}>Learned From Him</p>
-                    </div>
-
-                    <div className={styles.dcDivider} />
-
-                    <p className={styles.dcHeTaught}>He taught me</p>
-                    <p className={styles.dcLesson}>{lessonText}</p>
-
-                    <div className={styles.dcFooter}>
-                      <span>Happy Father's Day</span>
-                      <span className={styles.dcDot}>·</span>
-                      <span>2026</span>
-                    </div>
+                  <div className={styles.dcBrandMark}>
+                    <span className={styles.dcBrandMarkName}>The <span>Yellow</span> Brand</span>
+                    <span className={styles.dcBrandMarkDate}>Happy Father's Day · 2026</span>
                   </div>
-
-                  <div className={styles.dcBorderBottom} />
                 </div>
               </div>
 

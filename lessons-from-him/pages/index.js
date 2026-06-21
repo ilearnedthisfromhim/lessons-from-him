@@ -21,6 +21,9 @@ export default function Home() {
   const [selectedLesson, setSelectedLesson] = useState(null)
   const [customLesson, setCustomLesson]     = useState('')
   const [photo, setPhoto]                   = useState(null)
+  // Natural pixel dimensions of the uploaded photo. The card/preview/export
+  // all derive their aspect ratio from this — never a forced square.
+  const [photoDims, setPhotoDims]           = useState(null) // { width, height }
   const [consent, setConsent]               = useState(false)
   const [submitting, setSubmitting]         = useState(false)
   const [submitted, setSubmitted]           = useState(false)
@@ -37,7 +40,18 @@ export default function Home() {
     const file = e.target.files[0]
     if (!file) return
     const reader = new FileReader()
-    reader.onload = (ev) => { setPhoto(ev.target.result); setStep(3) }
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result
+      // Read the image's real, native dimensions before we ever show it,
+      // so the card box can be built to that exact aspect ratio.
+      const img = new Image()
+      img.onload = () => {
+        setPhotoDims({ width: img.naturalWidth, height: img.naturalHeight })
+        setPhoto(dataUrl)
+        setStep(3)
+      }
+      img.src = dataUrl
+    }
     reader.readAsDataURL(file)
   }
 
@@ -47,9 +61,15 @@ export default function Home() {
       const html2canvas = (await import('html2canvas')).default
       const node = cardRef.current
       const renderedWidth = node.offsetWidth
-      // 1:1 square export target (1080x1080), regardless of on-screen size
-      const EXPORT_WIDTH = 1080
-      const scale = EXPORT_WIDTH / renderedWidth
+
+      // Export at the photo's OWN native width (capped so huge camera
+      // photos don't blow up render time), preserving its real aspect
+      // ratio exactly — no forced square, no stretching.
+      const MAX_EXPORT_WIDTH = 2000
+      const targetWidth = photoDims
+        ? Math.min(photoDims.width, MAX_EXPORT_WIDTH)
+        : renderedWidth
+      const scale = targetWidth / renderedWidth
 
       const canvas = await html2canvas(node, {
         scale,
@@ -88,7 +108,7 @@ export default function Home() {
 
   const resetAll = () => {
     setStep(1); setSelectedLesson(null); setCustomLesson('')
-    setPhoto(null); setConsent(false); setSubmitted(false)
+    setPhoto(null); setPhotoDims(null); setConsent(false); setSubmitted(false)
   }
 
   return (
@@ -209,8 +229,13 @@ export default function Home() {
                 <p className={styles.heroSub}>Download and share to celebrate your hero</p>
               </div>
 
-              {/* THE DIGITAL CARD */}
-              <div className={styles.cardPreviewWrap}>
+              {/* THE DIGITAL CARD — box ratio matches the photo's own
+                  natural width/height, so nothing is cropped, squashed,
+                  or resized. */}
+              <div
+                className={styles.cardPreviewWrap}
+                style={photoDims ? { aspectRatio: `${photoDims.width} / ${photoDims.height}` } : undefined}
+              >
                 <div ref={cardRef} className={styles.digitalCard}>
                   {photo && (
                     <img

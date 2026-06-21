@@ -314,9 +314,9 @@
 /* ══════════════════════════════════════════
    STEP 3 — DIGITAL CARD
    Poster style: the photo IS the background,
-   full bleed, edge to edge. The headline sits
-   directly on top of it — no card-on-card,
-   no white panel, no extra framing.
+   full bleed, edge to edge, square (1:1). The
+   headline sits directly on top of it — no
+   card-on-card, no white panel, no framing.
 ══════════════════════════════════════════ */
 .cardPreviewWrap {
   border-radius: 20px;
@@ -324,13 +324,13 @@
   box-shadow: 0 16px 40px rgba(10,39,71,0.22);
   position: relative;
   width: 100%;
-  /* Bulletproof 9:16 box via padding-percentage, independent of the
+  /* Bulletproof 1:1 box via padding-percentage, independent of the
      aspect-ratio CSS property. height:0 + padding-top forces the box
-     open to an exact ratio no matter what the parent flex/scroll
+     open to an exact square no matter what the parent flex/scroll
      chain does — this is what actually prevents the photo and text
      from ever stretching or collapsing. */
   height: 0;
-  padding-top: 177.78%; /* 16/9 = 1.7778 */
+  padding-top: 100%; /* 1:1 */
 }
 
 .digitalCard {
